@@ -22,7 +22,7 @@ Running the script without any parameters will just return all files in the repl
 python replay-player.py
 ```
 
-You can filter by a team or by two teams by using the `-t` or `-teams` flag. Note this flag is completely optional.
+You can filter by a team OR by two teams by using the `-t` or `-teams` flag. Note this flag is completely optional.
 ```
 python replay-player.py --team TEAM1
 
@@ -31,6 +31,8 @@ python replay-player.py --team TEAM1 TEAM2
 
 Afterwards you can select a replay ID by using the `-n` or `--number` flag
 ```
+python replay-player.py --team TEAM1 -n 1
+
 python replay-player.py --team TEAM1 TEAM2 -n 1
 
 python replay-player.py -n 1
