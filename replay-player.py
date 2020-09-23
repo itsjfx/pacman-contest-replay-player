@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+
+"""replay-player.py: Easy replay player for Pacman Contest replays"""
+
+__author__      = "Thomas"
+__copyright__   = "Copyright 2020, itsjfx"
+
 import os
 import sys
 import argparse
