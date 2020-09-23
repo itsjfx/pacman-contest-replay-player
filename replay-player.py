@@ -7,7 +7,7 @@ import re
 
 # Settings
 REPLAYS_FOLDER = "replays"
-PYTHON = "python36"
+PYTHON = "python"
 
 # Constants
 DIR_SCRIPT = sys.path[0]
