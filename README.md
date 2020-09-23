@@ -38,6 +38,11 @@ python replay-player.py --team TEAM1 TEAM2 -n 1
 python replay-player.py -n 1
 ```
 
+Step size can also be specified using the `-s` or `--delay-step` flag
+```
+python replay-player.py --team TEAM1 TEAM2 -n 1 -s 0
+```
+
 ## Notes
 
 You may want to add the ``replays`` folder to your `.gitignore`. You can do this by adding ``replays/`` to your `.gitignore` file.
