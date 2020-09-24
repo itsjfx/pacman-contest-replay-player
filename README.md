@@ -43,6 +43,11 @@ Step size can also be specified using the `-s` or `--delay-step` flag
 python replay-player.py --team TEAM1 TEAM2 -n 1 -s 0
 ```
 
+You can also choose a replay to play using the `-f` or `--file` flag
+```
+python replay-player.py -f BBC_vs_It_depends_contest18Capture.replay -s 0
+```
+
 ## Notes
 
 You may want to add the ``replays`` folder to your `.gitignore`. You can do this by adding ``replays/`` to your `.gitignore` file.
