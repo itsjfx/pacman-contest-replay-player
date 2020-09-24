@@ -51,15 +51,22 @@ parser.add_argument('-s', '--delay-step', type=float, dest='delay_step', help='D
 args = parser.parse_args()
 
 
+def generate_cmd(replay_path):
+    file_name = os.path.basename(replay_path)
+    match = re.search("(.*)_vs_(.*)_.*", file_name)
+    red = "Red"
+    blue = "Blue"
+    if match and match.groups() and len(match.groups()) > 1:
+        red, blue = match.groups()
+    return f'{PYTHON_BIN} {os.path.join(DIR_SCRIPT, "capture.py")} --red-name {red} --blue-name {blue} --replay {replay_path} --delay-step {args.delay_step}'
+
 def main():
     if args.file:
-        cmd = f'{PYTHON_BIN} {os.path.join(DIR_SCRIPT, "capture.py")} --replay {args.file} --delay-step {args.delay_step}'
-        os.system(cmd)
+        os.system(generate_cmd(args.file))
         exit(0)
 
     if not os.path.exists(REPLAYS_FOLDER):
-        print('No replays folder found with path "{}". This can be edited in the script under REPLAYS_FOLDER'.format(
-            REPLAYS_FOLDER))
+        print(f'No replays folder found with path "{REPLAYS_FOLDER}". This can be edited in the script under REPLAYS_FOLDER')
         exit(1)
 
     all_files = [f for f in os.listdir(REPLAYS_FOLDER) if os.path.isfile(os.path.join(DIR_SCRIPT, REPLAYS_FOLDER, f))]
@@ -75,24 +82,15 @@ def main():
     if len(files) == 0:
         print("ERROR: No files found")
     elif args.number:  # We are selecting a replay to play
-        if args.number < len(files) + 1:
+        if args.number < len(files) + 1: # Compensate for the fact that indexes start from 0 but IDs start from 1
             found_file = files[args.number - 1]
-            match = re.match("(.*)_vs_(.*)_.*", found_file)
-            red = match[1]
-            blue = match[2]
-            os.system("{} {} --red-name {} --blue-name {} --replay {}/{} --delay-step {}".format(PYTHON_BIN,
-                                                                                                 os.path.join(
-                                                                                                     DIR_SCRIPT,
-                                                                                                     "capture.py"), red,
-                                                                                                 blue, REPLAYS_FOLDER,
-                                                                                                 found_file,
-                                                                                                 str(args.delay_step)))
+            os.system(generate_cmd(os.path.join(DIR_SCRIPT, REPLAYS_FOLDER, found_file)))
         else:
-            print("ERROR: Invalid replay ID. {} replays found (select from 1 - {}).".format(len(files), len(files)))
+            print(f'ERROR: Invalid replay ID. {len(files)} replays found (select from 1 - {len(files)}).')
     else:  # No number given, list the IDs
-        print("{} Files found:".format(len(files)))
+        print(f'{len(files)} Files found:')
         for i, f in enumerate(files):
-            print("ID {}: {}".format(i + 1, f))
+            print(f'ID {i + 1}: {f}')
 
 
 if __name__ == "__main__":
